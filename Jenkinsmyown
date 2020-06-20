@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('compile') {
+	   steps {
+		git url: 'https://github.com/TM1234/samplejavaapp.git'
+		sh script: '/opt/apache-maven-3.6.3/bin/mvn compile'
+           }
+        }
+        stage('codereview-pmd') {
+	   steps {
+		sh script: '/opt/apache-maven-3.6.3/bin/mvn -P metrics pmd:pmd'
+           }
+	   post {
+               success {
+                   pmd canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '**/pmd.xml', unHealthy: ''
+               }
+           }		
+        }
+        stage('unit-test') {
+	   steps {
+		sh script: '/opt/apache-maven-3.6.3/bin/mvn test'
+           }
+	   post {
+               success {
+                   junit 'target/surefire-reports/*.xml'
+               }
+           }			
+        }
+      
+        stage('package') {
+	   steps {
+		sh script: '/opt/apache-maven-3.6.3/bin/mvn clean package'	
+           }		
+        }
+    }
+}
