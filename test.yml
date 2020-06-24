@@ -1,0 +1,8 @@
+---
+- hosts: all
+#  become: yes
+  tasks:
+#### Downloading script from github
+    - name: download script from github
+      shell: |
+         curl -o /tmp/samplejavanew5.war -H "Authorization: Bearer 29136f9bc571207d00839a5580e48bbd20bf73fb" https://github.com/TM1234/samplejavaapp/raw/master/sampleapp.war
