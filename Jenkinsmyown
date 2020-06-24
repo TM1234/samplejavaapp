@@ -37,7 +37,7 @@ pipeline {
     }
     stage('ansible-ymldeploy') {
 	   steps {
-		ansible-playbook -i /home/siusmi/myinv test.yml -u devops -k jdokuans	
+		sh 'ansible-playbook -i /home/siusmi/myinv test.yml -u devops -k jdokuans'	
            }		
         }
     }
