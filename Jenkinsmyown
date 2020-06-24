@@ -34,12 +34,13 @@ pipeline {
 		sh script: '/opt/apache-maven-3.6.3/bin/mvn clean package'	
            }		
         }
-    }
-    stage('ansible-ymldeploy') {
+   
+   stage('ansible-ymldeploy') {
 	   steps {
 		sh 'ansible-playbook -i /home/siusmi/myinv test.yml -u devops -k jdokuans'	
            }		
         }
     }
+   }
     
 }
