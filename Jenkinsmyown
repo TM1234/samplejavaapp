@@ -37,7 +37,7 @@ pipeline {
    
    stage('ansible-ymldeploy') {
 	   steps {
-		sh 'ansible-playbook ${WORKSPACE}/test.yml ${WORKSPACE}/myinv'
+		sh 'ansible-playbook -i /home/siusmi test.yml'
            }		
         }
     }
